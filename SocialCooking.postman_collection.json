@@ -1,0 +1,104 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SocialCooking",
+		"_postman_id": "ed3b0623-51b6-1f5b-e9cd-f699790a7ce0",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AddRecipe",
+			"request": {
+				"url": "http://localhost:8080/recipes",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\":1,\r\n\t\"name\":\"Baked Chicken Schnitzel\",\r\n\t\"ingredients\":[\r\n\t\t{\r\n\t\t\t\"name\":\"1 tablespoon olive oil, or as desired\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\":\"1 tablespoon paprika\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\":\"2 eggs, beaten\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\":\"6 chicken breasts, cut in half lengthwise\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\":\"2 cups seasoned bread crumbs\"\r\n\t\t}\r\n\t]\r\n\t\r\n}\r\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "deleteRecipe",
+			"request": {
+				"url": "http://localhost:8080/recipes/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "findRecipeById",
+			"request": {
+				"url": "http://localhost:8080/recipes/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateRecipe",
+			"request": {
+				"url": "http://localhost:8080/recipes",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\":1,\r\n\t\"name\":\"Baked Chicken Schnitzel\",\r\n\t\"ingredients\":[\r\n\t\t{\r\n\t\t\t\"name\":\"1 tablespoon olive oil, or as desired\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\":\"1 tablespoon paprika\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\":\"2 eggs, beaten\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\":\"6 chicken breasts, cut in half lengthwise\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\":\"2 cups seasoned bread crumbs\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\":\"1 large lemon, zested\"\r\n\t\t}\r\n\t]\r\n\t\r\n}\r\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "SearchRecipesByName",
+			"request": {
+				"url": "http://localhost:8080/search/recipes/?name=chicke&page=0&size=10",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "SearchRecipesByIngredients",
+			"request": {
+				"url": "http://localhost:8080/search/recipes/?ingredients[]=eggs&page=0&size=10",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"nested\": {\"path\": \"ingredients\",\"score_mode\": \"avg\",\"query\": {\"bool\": {\"must\": [{\"match\": {\"ingredients.name\": \"john\"}},{\"match\": {\"comments.age\": 28}}]}}\n\n@Query(\"{\"query\":{\"bool\":{\"must\":[{\"match\":{\"userId\":\"?0\"}},]}}}\")\""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
