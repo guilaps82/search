@@ -17,11 +17,13 @@ public class Recipe {
 	@Field(type=FieldType.String , index=FieldIndex.not_analyzed)
 	private String id;
 	
-	@Field(type = FieldType.String,index=FieldIndex.analyzed,analyzer = "autocomplete",searchAnalyzer="standard",store=true)
+	@Field(type = FieldType.String,index=FieldIndex.analyzed,analyzer = "autocomplete",searchAnalyzer="standard")
     private String name;
 	
-	@Field(type=FieldType.Nested,store=true)
+	@Field(type=FieldType.Nested)
 	private List<Ingredients> ingredients;
+	
+	private List<String> tags;
 
 	public String getId() {
 		return id;
@@ -47,7 +49,14 @@ public class Recipe {
 		this.ingredients = ingredients;
 	}
 	
-	
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
 	public static class Ingredients{
 		
 		@Field(type = FieldType.String,index = FieldIndex.analyzed, analyzer="autocomplete",searchAnalyzer="standard",store=true)

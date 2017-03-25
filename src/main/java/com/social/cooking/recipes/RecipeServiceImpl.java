@@ -43,7 +43,12 @@ public class RecipeServiceImpl implements RecipeService{
 	}
 
 	@Override
-	public Page<Recipe> searchRecipesByIngredients(String name, List<String> ingredients, Pageable pageable) {
-		return recipeRepository.findByIngredients(name, ingredients, pageable);
+	public Page<Recipe> searchRecipesByIngredients(List<String> ingredients, Pageable pageable) {
+		return recipeRepository.findByIngredients(ingredients, pageable);
+	}
+
+	@Override
+	public Page<Recipe> searchRecipesByTag(List<String> tags, Pageable pageable) {
+		return recipeRepository.findByTags(tags, pageable);
 	}
 }

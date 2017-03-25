@@ -48,17 +48,23 @@ public class RecipeRestController {
 	@RequestMapping(value = "/search/recipes/", method = RequestMethod.GET)
 	public PagedResources<Recipe> searchRecipes(@RequestParam(name = "name", defaultValue = "") String name,
 			@RequestParam(name = "ingredients[]",required=false) List<String> ingredients,
+			@RequestParam(name = "tags[]",required=false) List<String> tags,
 			Pageable pageable,
 			PagedResourcesAssembler assembler) {
 		
 		Page<Recipe> page = null;
 		
 	    if(ingredients != null && !ingredients.isEmpty()){
-	    	page = recipeService.searchRecipesByIngredients(name, ingredients, pageable);
+	    	page = recipeService.searchRecipesByIngredients(ingredients, pageable);
+	    }
+	    else if(tags != null && !tags.isEmpty()){
+	    	page = recipeService.searchRecipesByTag(tags,pageable);
 	    }
 	    else{
 	    	page = recipeService.searchRecipesByName(name, pageable);
 	    }
 		return assembler.toResource(page);
 	}
+	
+	
 }

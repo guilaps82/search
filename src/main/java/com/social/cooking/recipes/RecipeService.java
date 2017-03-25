@@ -11,6 +11,6 @@ public interface RecipeService {
 	void   deleteRecipe(Recipe recipe);
 	void   deleteRecipe(String recipeId);
 	Page<Recipe> searchRecipesByName(String name,Pageable pageable);
-	Page<Recipe> searchRecipesByIngredients(String name,List<String> ingredients,Pageable pageable);
-	
+	Page<Recipe> searchRecipesByIngredients(List<String> ingredients,Pageable pageable);
+	Page<Recipe> searchRecipesByTag(List<String> tags,Pageable pageable);
 }

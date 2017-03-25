@@ -12,6 +12,9 @@ public interface RecipeRepository  extends ElasticsearchRepository<Recipe, Strin
     @Query("{\"match\": {\"name\": \"?0\"}}")
 	Page<Recipe> findByName(String name, Pageable pageable);
 
-    @Query("{\"nested\":{\"path\":\"ingredients\",\"query\":{\"bool\":{\"must\":[{\"match\":{\"ingredients.name\":\"?1\"}}]}}}}")
-    Page<Recipe> findByIngredients(String name, List<String> ingredient, Pageable pageable);
+    @Query("{\"nested\":{\"path\":\"ingredients\",\"query\":{\"bool\":{\"must\":[{\"match\":{\"ingredients.name\":\"?0\"}}]}}}}")
+    Page<Recipe> findByIngredients(List<String> ingredient, Pageable pageable);
+    
+    @Query("{\"match\": {\"tags\": \"?0\"}}")
+    Page<Recipe> findByTags(List<String> tags,Pageable pageable);
 }
