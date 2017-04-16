@@ -1,6 +1,7 @@
 package com.social.cooking.recipes;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -14,41 +15,111 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 public class Recipe {
 
 	@Id
-	@Field(type=FieldType.String , index=FieldIndex.not_analyzed)
-	private String id;
+	private UUID id;
 	
 	@Field(type = FieldType.String,index=FieldIndex.analyzed,analyzer = "autocomplete",searchAnalyzer="standard")
-    private String name;
+	private String title;
 	
-	@Field(type=FieldType.Nested)
-	private List<Ingredients> ingredients;
+	private String shortDescription;
 	
+	private String description;
+	
+	private int difficulty;
+	
+	private int userDifficulty;
+	
+	private String coverImage;
+	
+	private String thumbnail;
+	
+	private String coverVideo;
+	
+	@Field(type=FieldType.Object)
+	private List<Ingredient> ingredients;
+	
+	@Field(type=FieldType.Object,index = FieldIndex.analyzed, analyzer="autocomplete",searchAnalyzer="standard")
 	private List<String> tags;
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public List<Ingredients> getIngredients() {
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public int getUserDifficulty() {
+		return userDifficulty;
+	}
+
+	public void setUserDifficulty(int userDifficulty) {
+		this.userDifficulty = userDifficulty;
+	}
+
+	public String getCoverImage() {
+		return coverImage;
+	}
+
+	public void setCoverImage(String coverImage) {
+		this.coverImage = coverImage;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public String getCoverVideo() {
+		return coverVideo;
+	}
+
+	public void setCoverVideo(String coverVideo) {
+		this.coverVideo = coverVideo;
+	}
+
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(List<Ingredients> ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
-	
+
 	public List<String> getTags() {
 		return tags;
 	}
@@ -56,19 +127,4 @@ public class Recipe {
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
-
-	public static class Ingredients{
-		
-		@Field(type = FieldType.String,index = FieldIndex.analyzed, analyzer="autocomplete",searchAnalyzer="standard",store=true)
-		private String name;
-		
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-	}
-	
 }

@@ -1,6 +1,7 @@
 package com.social.cooking.recipes.web;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,19 +35,19 @@ public class RecipeRestController {
 	}
 
 	@RequestMapping(value = "/recipes/{recipeId}", method = RequestMethod.DELETE)
-	public void deleteRecipe(@PathVariable("recipeId") String recipeId) {
+	public void deleteRecipe(@PathVariable("recipeId") UUID recipeId) {
 		recipeService.deleteRecipe(recipeId);
 	}
 
 	@RequestMapping(value = "/recipes/{recipeId}", method = RequestMethod.GET)
-	public Recipe findRecipe(@PathVariable("recipeId") String recipeId) {
+	public Recipe findRecipe(@PathVariable("recipeId") UUID recipeId) {
 		Recipe result = recipeService.findById(recipeId);
 		return result;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/search/recipes/", method = RequestMethod.GET)
-	public PagedResources<Recipe> searchRecipes(@RequestParam(name = "name", defaultValue = "") String name,
+	public PagedResources<Recipe> searchRecipes(@RequestParam(name = "title", defaultValue = "") String name,
 			@RequestParam(name = "ingredients[]",required=false) List<String> ingredients,
 			@RequestParam(name = "tags[]",required=false) List<String> tags,
 			Pageable pageable,
@@ -61,7 +62,7 @@ public class RecipeRestController {
 	    	page = recipeService.searchRecipesByTag(tags,pageable);
 	    }
 	    else{
-	    	page = recipeService.searchRecipesByName(name, pageable);
+	    	page = recipeService.searchRecipesByTitle(name, pageable);
 	    }
 		return assembler.toResource(page);
 	}

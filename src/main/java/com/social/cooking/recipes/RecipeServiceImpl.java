@@ -1,6 +1,7 @@
 package com.social.cooking.recipes;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,17 +29,17 @@ public class RecipeServiceImpl implements RecipeService{
 	
 	@Transactional
 	@Override
-	public void deleteRecipe(String recipeId) {
+	public void deleteRecipe(UUID recipeId) {
 		recipeRepository.delete(recipeId);		
 	}
 
 	@Override
-	public Page<Recipe> searchRecipesByName(String name, Pageable pageable) {
-		return recipeRepository.findByName(name, pageable);
+	public Page<Recipe> searchRecipesByTitle(String title, Pageable pageable) {
+		return recipeRepository.findByTitle(title, pageable);
 	}
 
 	@Override
-	public Recipe findById(String recipeId) {
+	public Recipe findById(UUID recipeId) {
 		return recipeRepository.findOne(recipeId);
 	}
 
